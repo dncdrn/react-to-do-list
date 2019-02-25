@@ -1,22 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import ToDoForm from '../components/ToDoForm';
-import List from '../components/ToDoList';
+import ToDoList from '../components/ToDoList';
 import uuid from "uuid";
 
 export default function Home() {
-    const intialToDos = () => JSON.parse(localStorage.getItem('task')) || [];
+    const intialToDos = () => JSON.parse(localStorage.getItem('toDo')) || [];
     const [task, setTask] = useState('');
     const [taskList, setTaskList] = useState(intialToDos);
-    // const [toggleUpdateTask, setToggleUpdateTask] = useState();
 
     const handleTaskChange = (e) => { setTask(e.target.value) }
 
     const addTask = (e) => {
         e.preventDefault();
-        const taskItem = { taskId: uuid.v4(), taskName: task, completed: false }
-        setTaskList(prevTaskList => ([...prevTaskList, taskItem]))
-        setTask('')
-        // setToggleUpdateTask(!toggleUpdateTask);
+        const taskItem = { taskId: uuid.v4(), taskName: task, completed: false };
+        setTaskList(prevTaskList => {
+            const newTask = [...prevTaskList, taskItem];
+            console.log('prevTaskList', newTask);
+            return newTask;
+        });
+        setTask('');
     }
 
     const markTaskCompleted = (taskIndex) => {
@@ -26,30 +28,31 @@ export default function Home() {
         };
         const updatedList = Object.assign([...taskList], { [taskIndex]: updatedTodo });
         setTaskList(updatedList);
-        // setToggleUpdateTask(!toggleUpdateTask);
     }
 
     const taskDelete = (taskIndex) => {
-        taskList.splice(taskIndex, 1)
-        // setToggleUpdateTask(!toggleUpdateTask);
+        const newTaskList = taskList.filter((_, index) => index !== taskIndex);
+        setTaskList(newTaskList);
     }
 
     useEffect(() => {
-        localStorage.setItem('todo', JSON.stringify(taskList));
-        setTaskList(JSON.parse(localStorage.getItem('todo')));
+        console.log('USe Effect', taskList)
+        localStorage.setItem('toDo', JSON.stringify(taskList));
     }, [taskList])
 
     return (
-        <div className="App bg-primary d-flex">
-            <div className="container align-self-center">
-                <h1 className="text-white font-weight-bold">To-Do App!</h1>
-                <p className="h4 text-white mt-3">Add new To-Do</p>
-                {taskList}
-                <ToDoForm handleTaskChange={handleTaskChange} addTask={addTask} task={task} />
+        <div className="app d-flex">
+            <div className="app-container container">
+                <h1 className="app__title">To-Do App!</h1>
+                <p className="app__action">Add new To-Do</p>
+                <ToDoForm addTask={addTask}
+                    task={task}
+                    handleTaskChange={handleTaskChange} />
                 <br />
-                {taskList.length > 0 && <List taskList={taskList}
+                {taskList.length > 0 && <p className="app__action">To do list:</p>}
+                <ToDoList taskList={taskList}
                     markTaskCompleted={markTaskCompleted}
-                    taskDelete={taskDelete} />}
+                    taskDelete={taskDelete} />
             </div>
         </div>
     )

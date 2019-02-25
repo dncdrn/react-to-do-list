@@ -1,0 +1,63 @@
+@import url('https://fonts.googleapis.com/css?family=Raleway:400,700');
+
+$background-color: #4292E7;
+$app-font-style: Raleway, sans-serif;
+$text-color: white;
+
+.app {
+  font-family: $app-font-style;
+  text-align: center;
+  min-height: 100vh;
+  background: $background-color;
+}
+
+.app__title{
+  color: $text-color;
+  font-weight: bold;
+}
+
+.app__action{
+  color: $text-color;
+  margin-top: 1rem;
+  font-size: 1.5rem;
+}
+
+.app-form{
+  margin: auto;
+}
+
+.app-form__button:disabled {
+  cursor: not-allowed;
+}
+.item-name{
+  font-size: 1.25rem;
+}
+.item-name-completed{
+  text-decoration: line-through;
+  font-size: 1.25rem;
+}
+
+/* Transition styles */
+
+.move-enter {
+  opacity: 0.01;
+  transform: translate(-40px, 0)
+}
+
+.move-enter-active {
+  opacity: 1;
+  transform: translate(0, 0);
+  transition: all 500ms ease-in;
+}
+
+.move-exit {
+  opacity: 1;
+  transform: translate(0, 0)
+}
+
+.move-exit-active {
+  opacity: 0.01;
+  transform: translate(40px, 0);
+  transition: all 500ms ease-in;
+}
+
