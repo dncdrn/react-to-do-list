@@ -5,7 +5,7 @@ import '../App.scss';
 
 export default function List(props) {
     return (
-        <TransitionGroup>
+        <TransitionGroup className="task-list">
             {
                 props.taskList.map((taskItem, index) => {
                     return (
@@ -13,7 +13,7 @@ export default function List(props) {
                             <ToDoItem
                                 taskItem={taskItem}
                                 markTaskCompleted={() => props.markTaskCompleted(index)}
-                                taskDelete={() => props.taskDelete(index)} />
+                                deleteTask={() => props.deleteTask(index)} />
                         </CSSTransition>
                     )
                 })

@@ -2,7 +2,7 @@ import React from 'react'
 
 const Input = (props) => {
     return (
-        <form onSubmit={props.addTask} className="app-form col-lg-5">
+        <form onSubmit={props.addTask} className="app-form col-lg-7">
             <input
                 type="text"
                 className="form-control"
@@ -10,7 +10,7 @@ const Input = (props) => {
                 value={props.task}
                 onChange={props.handleTaskChange}
             />
-            <button disabled={!props.task} className="app-form__button mt-3 btn btn-outline-light">Add</button>
+            <button disabled={!props.task} className="app-form__button btn btn-outline-light">ADD TASK</button>
         </form>
     )
 }

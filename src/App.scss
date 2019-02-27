@@ -3,6 +3,8 @@
 $background-color: #4292E7;
 $app-font-style: Raleway, sans-serif;
 $text-color: white;
+$font-size: 1.25rem;
+$cursor-pointer: pointer;
 
 .app {
   font-family: $app-font-style;
@@ -11,31 +13,82 @@ $text-color: white;
   background: $background-color;
 }
 
+.app-container{
+  align-self: center;
+}
+
 .app__title{
   color: $text-color;
-  font-weight: bold;
+  font-weight: 700;
 }
 
 .app__action{
   color: $text-color;
   margin-top: 1rem;
   font-size: 1.5rem;
+  font-weight: 500;
 }
 
 .app-form{
   margin: auto;
 }
 
+.app-form__button{
+  margin-top: 1rem;
+}
+
 .app-form__button:disabled {
   cursor: not-allowed;
 }
-.item-name{
-  font-size: 1.25rem;
+
+.task-list{
+  max-height: 300px;
+  overflow-y: auto;
+  overflow-x: hidden;
 }
-.item-name-completed{
+
+.task-list-count{
+  font-size: $font-size;
+  margin-top: 20px;
+  color: $text-color;
+}
+
+.task-item{
+  display: flex !important;
+  justify-content: space-between !important;
+  align-items: center !important;
+}
+
+.task-name{
+  font-size: $font-size;
+}
+
+.task-item__checkbox{
+  margin-left: 8px;
+  cursor: $cursor-pointer;
+}
+
+.task-name-completed{
   text-decoration: line-through;
-  font-size: 1.25rem;
+  font-size: $font-size;
 }
+
+.task-item__delete{
+  cursor: $cursor-pointer;
+  color: #dc3545 !important;
+}
+
+.task-item__done{
+  cursor: $cursor-pointer;
+  color: #28a745;
+}
+
+li{
+  i{
+    font-size: 2em !important;
+  }
+}
+
 
 /* Transition styles */
 

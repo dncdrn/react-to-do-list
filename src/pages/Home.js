@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import ToDoForm from '../components/ToDoForm';
 import ToDoList from '../components/ToDoList';
-import uuid from "uuid";
 
 export default function Home() {
     const intialToDos = () => JSON.parse(localStorage.getItem('toDo')) || [];
@@ -12,7 +11,7 @@ export default function Home() {
 
     const addTask = (e) => {
         e.preventDefault();
-        const taskItem = { taskId: uuid.v4(), taskName: task, completed: false };
+        const taskItem = { taskName: task, isCompleted: false };
         setTaskList(prevTaskList => {
             const newTask = [...prevTaskList, taskItem];
             console.log('prevTaskList', newTask);
@@ -24,16 +23,23 @@ export default function Home() {
     const markTaskCompleted = (taskIndex) => {
         const updatedTodo = {
             ...taskList[taskIndex],
-            completed: !taskList[taskIndex].completed
+            isCompleted: !taskList[taskIndex].isCompleted
         };
         const updatedList = Object.assign([...taskList], { [taskIndex]: updatedTodo });
         setTaskList(updatedList);
     }
 
-    const taskDelete = (taskIndex) => {
+    const deleteTask = (taskIndex) => {
         const newTaskList = taskList.filter((_, index) => index !== taskIndex);
         setTaskList(newTaskList);
     }
+
+    const getCompletedTask = () => {
+        return taskList.filter(element => {
+            return element.isCompleted === true;
+        }).length;
+    }
+
 
     useEffect(() => {
         console.log('USe Effect', taskList)
@@ -52,7 +58,8 @@ export default function Home() {
                 {taskList.length > 0 && <p className="app__action">To do list:</p>}
                 <ToDoList taskList={taskList}
                     markTaskCompleted={markTaskCompleted}
-                    taskDelete={taskDelete} />
+                    deleteTask={deleteTask} />
+                {taskList.length > 0 && <p class="task-list-count">{getCompletedTask()} of {taskList.length} task completed </p>}
             </div>
         </div>
     )
