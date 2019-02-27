@@ -14,7 +14,6 @@ export default function Home() {
         const taskItem = { taskName: task, isCompleted: false };
         setTaskList(prevTaskList => {
             const newTask = [...prevTaskList, taskItem];
-            console.log('prevTaskList', newTask);
             return newTask;
         });
         setTask('');
@@ -42,7 +41,6 @@ export default function Home() {
 
 
     useEffect(() => {
-        console.log('USe Effect', taskList)
         localStorage.setItem('toDo', JSON.stringify(taskList));
     }, [taskList])
 
@@ -59,7 +57,7 @@ export default function Home() {
                 <ToDoList taskList={taskList}
                     markTaskCompleted={markTaskCompleted}
                     deleteTask={deleteTask} />
-                {taskList.length > 0 && <p class="task-list-count">{getCompletedTask()} of {taskList.length} task completed </p>}
+                {taskList.length > 0 && <p className="task-list-count">{getCompletedTask()} of {taskList.length} task completed </p>}
             </div>
         </div>
     )
